@@ -1,2 +1,3 @@
-# leo-messenger
-A private messenger written in Leo
+# leo_messenger.aleo
+
+
