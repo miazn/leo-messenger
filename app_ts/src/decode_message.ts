@@ -1,5 +1,6 @@
 import { Account, ProgramManager, TransactionModel, AleoKeyProvider, NetworkRecordProvider, AleoNetworkClient, RecordCiphertext, RecordPlaintext} from "@aleohq/sdk";
-
+import * as dotenv from "dotenv";
+dotenv.config({ path: '.env' });
 function isError(result: Error | TransactionModel): result is Error {
     return (result as Error).message !== undefined;
 }
@@ -51,9 +52,10 @@ function integerArrayToString(array) {
     return string;
 }
 
+const privateKey2 = process.env.PRIVATE_KEY_2;
 
 // Create a new NetworkClient, KeyProvider, and RecordProvider
-const account = new Account({privateKey: "APrivateKey1zkpCQPbTB34Myjm3t28dFGtMJxeEWCb5kdDhJdgaPTzFVU2"});
+const account = new Account({privateKey: privateKey2});
 const networkClient = new AleoNetworkClient("https://api.explorer.aleo.org/v1");
 const keyProvider = new AleoKeyProvider();
 const recordProvider = new NetworkRecordProvider(account, networkClient);
@@ -63,7 +65,7 @@ const programManager = new ProgramManager("https://api.explorer.aleo.org/v1", ke
 programManager.setAccount(account);
 
 // Fetch the transaction from the network that user 1 sent
-const transaction = await programManager.networkClient.getTransaction("at1nt7y546lczrkz0syxkydjapr9ec4hqwk55jnalka3v4kcc7pdsfq4ah7lf");
+const transaction = await programManager.networkClient.getTransaction("at169dza9f5t2xm8z0gqnd7vkqu2satdm8xpzev52daxdul3fll7v8sv8cx2s");
 
 if (transaction instanceof Error) {
     console.error("ERROR:", transaction.message);
